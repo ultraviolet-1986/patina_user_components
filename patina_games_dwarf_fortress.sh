@@ -1,6 +1,13 @@
 #!/usr/bin/env bash
 
 ##############
+# Directives #
+##############
+
+# Some functions are defined elsewhere
+# shellcheck disable=SC2154
+
+##############
 # References #
 ##############
 
@@ -21,12 +28,12 @@ readonly patina_df_wiki_install_url='http://dwarffortresswiki.org/index.php/DF20
 
 patina_dwarf_fortress_install_dependencies() {
   # Detect system Package Manager and install known dependencies.
-  if [ $patina_package_manager = 'apt' ] ; then
+  if [ "$patina_package_manager" = 'apt' ] ; then
     patina_package_manager install \
       libsdl1.2debian \
       libsdl-image1.2 \
       libSDL-ttf2.0-0
-  elif [ $patina_package_manager = 'dnf' ] ; then
+  elif [ "$patina_package_manager" = 'dnf' ] ; then
     patina_package_manager install \
       SDL \
       SDL_image \
@@ -49,9 +56,9 @@ patina_dwarf_fortress_download() {
 
   if [ "$patina_has_internet" = 'true' ] && [ -e "$patina_df_download_dir" ] ; then
     echo
-    wget $patina_df_download_url/$(wget -O- $patina_df_download_url | \
-      egrep -o 'df_[0-9\.]+.[0-9\.]+_linux.tar.bz2' | sort -V  | tail -1) \
-      -P $patina_df_download_dir
+    wget "$patina_df_download_url"/"$(wget -O- $patina_df_download_url | \
+      grep -E -o 'df_[0-9\.]+.[0-9\.]+_linux.tar.bz2' | sort -V  | tail -1)" \
+      -P "$patina_df_download_dir"
     echo
   else
     echo_wrap "Patina has encountered an unknown error."
@@ -66,7 +73,7 @@ patina_dwarf_fortress_play() {
   # Execute Dwarf Fortress script if found.
   if [ -e "$patina_df_script" ] ; then
     echo_wrap "Patina will now execute Dwarf Fortress script found at "`
-      `"'$patina_df_script'.\n"
+      `"'$patina_df_script'.\\n"
     "$patina_df_script"
     echo
   else
