@@ -12,8 +12,18 @@ repository.
 
 ### Dwarf Fortress
 
+Note that some commands are simply shorthand for the sake of expediency.
+
 ```bash
   p-dwarf download      # Detect and download the latest version.
+  p-dwarf dl            # Detect and download the latest version.
   p-dwarf dependencies  # Detect and install dependencies (if possible).
-  p-dwarf play          # Play Dwarf Fortress.
+  p-dwarf deps          # Detect and install dependencies (if possible).
+  p-dwarf play          # Find and launch Dwarf Fortress.
+
+  p-df download         # Detect and download the latest version.
+  p-df dl               # Detect and download the latest version.
+  p-df dependencies     # Detect and install dependencies (if possible).
+  p-df deps             # Detect and install dependencies (if possible).
+  p-df play             # Find and launch Dwarf Fortress.
 ```
