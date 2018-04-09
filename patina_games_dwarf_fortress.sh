@@ -4,7 +4,7 @@
 # Directives #
 ##############
 
-# Some functions are defined elsewhere
+# Some items are defined elsewhere
 # shellcheck disable=SC2154
 
 ##############
@@ -61,42 +61,33 @@ patina_dwarf_fortress_download() {
       -P "$patina_df_download_dir"
     echo
   else
-    echo_wrap "Patina has encountered an unknown error."
+    patina_throw_exception 'PE0000'
   fi
 }
 
 patina_dwarf_fortress_play() {
   # Temporarily set variables for Dwarf Fortress folder and script location.
-  patina_df_directory="$(find "$HOME" -name "df_linux" -type d -print -quit 2> /dev/null)"
-  patina_df_script="$patina_df_directory/df"
+  local patina_df_directory="$(find "$HOME" -name "df_linux" -type d -print -quit 2> /dev/null)"
+  local patina_df_script="$patina_df_directory/df"
 
   # Execute Dwarf Fortress script if found.
   if [ -e "$patina_df_script" ] ; then
-    echo_wrap "Patina will now execute Dwarf Fortress script found at "`
-      `"'$patina_df_script'.\\n"
     "$patina_df_script"
     echo
   else
-    echo_wrap "Patina could not find a Dwarf Fortress launcher script."
+    patina_throw_exception 'PE0005'
   fi
-
-  # Allow for alternate location without restarting Patina.
-  unset -v patina_df_directory patina_df_script
 }
 
 patina_dwarf_fortress() {
   if [ "$#" -eq "0" ] ; then
-    echo_wrap "Patina has not been given an argument. Please use 'download', "`
-      `"'dl', 'dependencies','deps', or 'play'."
+    patina_throw_exception 'PE0003'
   else
     case "$1" in
       'download' | 'dl') patina_dwarf_fortress_download ;;
       'dependencies' | 'deps') patina_dwarf_fortress_install_dependencies ;;
       'play') patina_dwarf_fortress_play ;;
-      *)
-        echo_wrap "Patina has not been given a supported argument. Please use "`
-          `"'download', 'dl', 'dependencies','deps', or 'play'."
-        ;;
+      *) patina_throw_exception 'PE0003' ;;
     esac
   fi
 }
