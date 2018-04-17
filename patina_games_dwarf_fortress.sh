@@ -81,7 +81,7 @@ patina_dwarf_fortress_play() {
 
 patina_dwarf_fortress() {
   if [ "$#" -eq "0" ] ; then
-    patina_throw_exception 'PE0003'
+    patina_throw_exception 'PE0001'
   else
     case "$1" in
       'download' | 'dl') patina_dwarf_fortress_download ;;
