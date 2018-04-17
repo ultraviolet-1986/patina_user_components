@@ -87,7 +87,7 @@ patina_dwarf_fortress() {
       'download' | 'dl') patina_dwarf_fortress_download ;;
       'dependencies' | 'deps') patina_dwarf_fortress_install_dependencies ;;
       'play') patina_dwarf_fortress_play ;;
-      *) patina_throw_exception 'PE0003' ;;
+      *) patina_throw_exception 'PE0003'; return ;;
     esac
   fi
 }
