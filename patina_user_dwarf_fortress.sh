@@ -76,7 +76,7 @@ patina_dwarf_fortress_play() {
 
   # Execute Dwarf Fortress script if found.
   if [ -e "$patina_df_script" ] ; then
-    "$patina_df_script"
+    ("$patina_df_script" > /dev/null 2>&1 &)
     echo
   else
     patina_throw_exception 'PE0005'
