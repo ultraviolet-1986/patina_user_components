@@ -17,9 +17,7 @@ Note that some commands are simply shorthand for the sake of expediency.
 
 ```bash
   p-dwarf download      # Detect and download the latest version.
-  p-dwarf dl            # Detect and download the latest version.
   p-dwarf dependencies  # Detect and install dependencies (if possible).
-  p-dwarf deps          # Detect and install dependencies (if possible).
   p-dwarf play          # Find and launch Dwarf Fortress.
 ```
 

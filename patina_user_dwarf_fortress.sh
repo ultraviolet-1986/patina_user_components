@@ -22,6 +22,8 @@ readonly patina_df_download_url='http://www.bay12games.com/dwarves'
 readonly patina_df_download_dir="$HOME/Downloads/Games"
 readonly patina_df_wiki_install_url='http://dwarffortresswiki.org/index.php/DF2014:Installation#Linux'
 
+patina_df_directory=''
+
 #############
 # Functions #
 #############
@@ -69,8 +71,8 @@ patina_dwarf_fortress_download() {
 
 patina_dwarf_fortress_play() {
   # Temporarily set variables for Dwarf Fortress folder and script location.
-  local patina_df_directory="$(find "$HOME" -name "df_linux" -type d -print -quit 2> /dev/null)"
-  local patina_df_script="$patina_df_directory/df"
+  patina_df_directory="$(find "$HOME" -name "df_linux" -type d -print -quit 2> /dev/null)"
+  patina_df_script="$patina_df_directory/df"
 
   # Execute Dwarf Fortress script if found.
   if [ -e "$patina_df_script" ] ; then
@@ -79,6 +81,9 @@ patina_dwarf_fortress_play() {
   else
     patina_throw_exception 'PE0005'
   fi
+
+  # Rubbish collection
+  unset -v patina_df_directory patina_df_script
 }
 
 patina_dwarf_fortress() {
@@ -86,8 +91,8 @@ patina_dwarf_fortress() {
     patina_throw_exception 'PE0001'
   else
     case "$1" in
-      'download' | 'dl') patina_dwarf_fortress_download ;;
-      'dependencies' | 'deps') patina_dwarf_fortress_install_dependencies ;;
+      'download') patina_dwarf_fortress_download ;;
+      'dependencies') patina_dwarf_fortress_install_dependencies ;;
       'play') patina_dwarf_fortress_play ;;
       *) patina_throw_exception 'PE0003'; return ;;
     esac
