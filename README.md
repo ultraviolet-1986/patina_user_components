@@ -7,6 +7,7 @@ repository.
 
 - [Built-in Commands](#built-in-commands)
   - [Dwarf Fortress](#dwarf-fortress)
+  - [Terminal Calibration](#terminal-calibration)
 
 ## Built-in Commands
 
