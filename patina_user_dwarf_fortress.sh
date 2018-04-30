@@ -32,7 +32,9 @@ patina_dwarf_fortress_install_dependencies() {
     patina_package_manager install \
       libsdl1.2debian \
       libsdl-image1.2 \
-      libSDL-ttf2.0-0
+      libSDL-ttf2.0-0 \
+      libglu1-mesa \
+      libopenal1
   elif [ "$patina_package_manager" = 'dnf' ] ; then
     patina_package_manager install \
       SDL \
@@ -97,6 +99,5 @@ patina_dwarf_fortress() {
 ###########
 
 alias 'p-dwarf'='patina_dwarf_fortress'
-alias 'p-df'='patina_dwarf_fortress'
 
 # End of File.
