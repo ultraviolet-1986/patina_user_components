@@ -39,14 +39,16 @@ patina_dwarf_fortress_install_dependencies() {
       libopenal1
   elif [ "$patina_package_manager" = 'dnf' ] ; then
     patina_package_manager install \
-      SDL \
-      SDL_image \
-      SDL_ttf \
-      gtk2-devel \
-      openal-soft \
       alsa-lib \
       alsa-plugins-pulseaudio \
-      mesa-dri-drivers
+      gtk2-devel \
+      libGLEW \
+      mesa-dri-drivers \
+      mesa-libGLU \
+      openal-soft \
+      SDL \
+      SDL_image \
+      SDL_ttf
   else
     echo_wrap "Patina cannot install dependencies on your current system. "`
       `"For more information, please visit '$patina_df_wiki_install_url'."
