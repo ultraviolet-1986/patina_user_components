@@ -24,8 +24,7 @@
 # Functions #
 #############
 
-patina_youtube_dl() {
-  # Note: Currently only downloads audio. Intended for podcast usage.
+patina_youtube_dl_mp3() {
   if ( ! hash 'youtube-dl' ) ; then
     patina_throw_exception 'PE0006'
     return
@@ -45,10 +44,27 @@ patina_youtube_dl() {
   fi
 }
 
+patina_youtube_dl_mp4() {
+  if ( ! hash 'youtube-dl' ) ; then
+    patina_throw_exception 'PE0006'
+    return
+  elif [ "$#" -eq "0" ] ; then
+    patina_throw_exception 'PE0001'
+    return
+  elif [ "$#" -gt 1 ] ; then
+    patina_throw_exception 'PE0002'
+    return
+  else
+    youtube-dl -f 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/mp4' "$1"
+    return
+  fi
+}
+
 ###########
 # Aliases #
 ###########
 
-alias 'p-yt-dl'='patina_youtube_dl'
+alias 'p-yt-dl-mp3'='patina_youtube_dl_mp3'
+alias 'p-yt-dl-mp4'='patina_youtube_dl_mp4'
 
 # End of File.
