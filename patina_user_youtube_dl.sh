@@ -24,38 +24,31 @@
 # Functions #
 #############
 
-patina_youtube_dl_mp3() {
+# patina_youtube_dl <format> <url>
+patina_youtube_dl() {
   if ( ! hash 'youtube-dl' ) ; then
     patina_throw_exception 'PE0006'
     return
-  elif [ "$#" -eq "0" ] ; then
+  elif [ "$#" -eq "0" ] || [ "$#" -eq "1" ] ; then
     patina_throw_exception 'PE0001'
     return
-  elif [ "$#" -gt 1 ] ; then
+  elif [ "$#" -gt "2" ] ; then
     patina_throw_exception 'PE0002'
     return
-  else
-    youtube-dl \
-      --extract-audio \
-      --audio-format mp3 \
-      --audio-quality 0 \
-      "$1"
-    return
-  fi
-}
-
-patina_youtube_dl_mp4() {
-  if ( ! hash 'youtube-dl' ) ; then
-    patina_throw_exception 'PE0006'
-    return
-  elif [ "$#" -eq "0" ] ; then
-    patina_throw_exception 'PE0001'
-    return
-  elif [ "$#" -gt 1 ] ; then
-    patina_throw_exception 'PE0002'
+  elif [ "$#" -eq "2" ] ; then
+    case "$1" in
+      'mp3')
+        youtube-dl --extract-audio --audio-format mp3 --audio-quality 0 "$2" ;;
+      'mp4')
+        youtube-dl -f 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/mp4' "$2" ;;
+      *)
+        patina_throw_exception 'PE0001'
+        return
+        ;;
+    esac
     return
   else
-    youtube-dl -f 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/mp4' "$1"
+    patina_throw_exception 'PE0000'
     return
   fi
 }
@@ -64,7 +57,6 @@ patina_youtube_dl_mp4() {
 # Aliases #
 ###########
 
-alias 'p-yt-dl-mp3'='patina_youtube_dl_mp3'
-alias 'p-yt-dl-mp4'='patina_youtube_dl_mp4'
+alias 'p-yt-dl'='patina_youtube_dl'
 
 # End of File.
