@@ -8,6 +8,7 @@ repository.
 - [Built-in Commands](#built-in-commands)
   - [Dwarf Fortress](#dwarf-fortress)
   - [Terminal Calibration](#terminal-calibration)
+  - [YouTube-DL](#youtube-dl)
 
 ## Built-in Commands
 
@@ -25,4 +26,13 @@ Note that some commands are simply shorthand for the sake of expediency.
 
 ```bash
 `p-calibrate <X> <Y>`  # Draw a grid on the Terminal to help resize window.
+```
+
+### YouTube-DL
+
+This command will download either video or audio depending on use.
+
+```bash
+`p-yt-dl mp3 <URL>`  # Download an MP3 audio file from a URL.
+`p-yt-dl mp4 <URL>`  # Download an MP4 video file from a URL.
 ```
