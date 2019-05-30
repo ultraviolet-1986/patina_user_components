@@ -54,6 +54,12 @@ patina_youtube_dl() {
 }
 
 ###########
+# Exports #
+###########
+
+export -f 'patina_youtube_dl'
+
+###########
 # Aliases #
 ###########
 
