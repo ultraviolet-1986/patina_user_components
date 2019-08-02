@@ -98,7 +98,6 @@ patina_download_minecraft_data() {
   patina_detect_internet_connection
 
   if [ "$patina_has_internet" = true ] ; then
-    mkdir -p "$patina_path_home_downloads"
     cd "$patina_path_home_downloads" || return
 
     patina_delete_minecraft_data
