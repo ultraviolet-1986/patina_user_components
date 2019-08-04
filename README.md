@@ -7,6 +7,7 @@ repository.
 
 - [Built-in Commands](#built-in-commands)
   - [Dwarf Fortress](#dwarf-fortress)
+  - [Minecraft](#minecraft)
   - [Terminal Calibration](#terminal-calibration)
   - [YouTube-DL](#youtube-dl)
 
@@ -20,6 +21,15 @@ Note that some commands are simply shorthand for the sake of expediency.
   p-dwarf download      # Detect and download the latest version.
   p-dwarf dependencies  # Detect and install dependencies (if possible).
   p-dwarf play          # Find and launch Dwarf Fortress.
+```
+
+### Minecraft
+
+This component will download the Linux Minecraft launcher archive, extract the
+contents, and build a read-only and mountable disk image.
+
+```bash
+`p-minecraft`  # Create an ISO disk image of the newest Minecraft Launcher.
 ```
 
 ### Terminal Calibration
