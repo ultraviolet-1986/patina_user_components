@@ -36,7 +36,7 @@
 #   Notes:
 #     1. Detects and deletes files and folders related to Minecraft launcher
 #        downloads.
-#     2. This function will not delete the 'Minecraft Launcher.iso' file.
+#     2. This function will not delete the 'Minecraft.iso' file.
 
 #   Required Packages:
 #     None.
@@ -52,7 +52,7 @@
 #   Notes:
 #     1. This function will download the Minecraft launcher data from Microsoft
 #        and create a mountable disk image from these files.
-#     2. This function will create a 'Minecraft Launcher.iso' file within the
+#     2. This function will create a 'Minecraft.iso' file within the
 #        ~/Downolads directory.
 #     3. This function will not operate if there are no active Internet
 #        connections.
@@ -116,15 +116,15 @@ patina_download_minecraft_data() {
 
     # Create new disk image (if possible).
     if ( hash 'mkisofs' > /dev/null 2>&1 ) ; then
-      if [ -f 'Minecraft Launcher.iso' ] ; then
-        printf "NOTE: Deleting existing 'Minecraft Launcher.iso' disk image..."
-        rm 'Minecraft Launcher.iso'
+      if [ -f 'Minecraft.iso' ] ; then
+        printf "NOTE: Deleting existing 'Minecraft.iso' disk image..."
+        rm 'Minecraft.iso'
         echo "Done"
       fi
 
-      printf "NOTE: Creating new 'Minecraft Launcher.iso' disk image... "
-      mkisofs -volid "$(patina_generate_volume_label)" \
-        -o "Minecraft Launcher.iso" -input-charset UTF-8 -joliet -joliet-long \
+      printf "NOTE: Creating new 'Minecraft.iso' disk image... "
+      mkisofs -volid "Minecraft" \
+        -o "Minecraft.iso" -input-charset UTF-8 -joliet -joliet-long \
         -rock 'minecraft-launcher' > /dev/null 2>&1
       echo "Done"
 
