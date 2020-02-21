@@ -38,9 +38,11 @@ patina_youtube_dl() {
   elif [ "$#" -eq "2" ] ; then
     case "$1" in
       'mp3')
-        youtube-dl --extract-audio --audio-format mp3 --audio-quality 0 -o "%(playlist_index)s %(title)s.%(ext)s" "$2" ;;
+        youtube-dl --extract-audio --audio-format mp3 --audio-quality 0 -o \
+          "%(playlist_index)s %(title)s.%(ext)s" "$2" ;;
       'mp4')
-        youtube-dl -f 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/mp4' -o "%(playlist_index)s %(title)s.%(ext)s" "$2" ;;
+        youtube-dl -f 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/mp4' -o \
+          "%(playlist_index)s %(title)s.%(ext)s" "$2" ;;
       *)
         patina_throw_exception 'PE0001'
         return
