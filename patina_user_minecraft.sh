@@ -63,6 +63,7 @@
 
 #   Required Packages:
 #     1. 'genisoimage' for command 'mkisofs'.
+#     2. 'wget' for command 'wget'.
 
 #   Parameters:
 #     None.
