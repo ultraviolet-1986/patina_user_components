@@ -75,66 +75,87 @@
 #############
 
 patina_delete_minecraft_data() {
-  if [ -f "$patina_path_home_downloads/Minecraft.tar.gz" ] ; then
+  if [ -f "$PATINA_PATH_HOME_DOWNLOADS/Minecraft.tar.gz" ] ; then
     printf "NOTE: Deleting existing 'Minecraft.tar.gz' file... "
     rm "Minecraft.tar.gz" > /dev/null 2>&1
-    echo "Done"
+    echo -e "${GREEN}Done${COLOR_RESET}"
   fi
 
-  if [ -d "$patina_path_home_downloads/Minecraft" ] ; then
+  if [ -d "$PATINA_PATH_HOME_DOWNLOADS/Minecraft" ] ; then
     printf "NOTE: Deleting existing 'Minecraft' directory... "
     rm -rf 'Minecraft' > /dev/null 2>&1
-    echo "Done"
+    echo -e "${GREEN}Done${COLOR_RESET}"
   fi
 
-  if [ -d "$patina_path_home_downloads/minecraft-launcher" ] ; then
+  if [ -d "$PATINA_PATH_HOME_DOWNLOADS/minecraft-launcher" ] ; then
     printf "NOTE: Deleting existing 'minecraft-launcher' directory... "
     rm -rf 'minecraft-launcher' > /dev/null 2>&1
-    echo "Done"
+    echo -e "${GREEN}Done${COLOR_RESET}"
   fi
+
+  return 0
 }
 
 patina_download_minecraft_data() {
   patina_detect_internet_connection
 
-  if [ "$patina_has_internet" = true ] ; then
-    mkdir -p "$patina_path_home_downloads"
-    cd "$patina_path_home_downloads" || return
+  if [ "$PATINA_HAS_INTERNET" = true ] ; then
+    mkdir -p "$PATINA_PATH_HOME_DOWNLOADS"
+    cd "$PATINA_PATH_HOME_DOWNLOADS" || return 1
 
     patina_delete_minecraft_data
 
-    # Download fresh copy of the Minecraft Launcher.
-    printf "NOTE: Downloading fresh copy of 'Minecraft.tar.gz'... "
-    wget 'https://launcher.mojang.com/download/Minecraft.tar.gz' > \
-      /dev/null 2>&1
-    echo "Done"
+    if ( command -v 'wget' > /dev/null 2>&1 ) ; then
+      # Download fresh copy of the Minecraft Launcher.
+      printf "NOTE: Downloading fresh copy of 'Minecraft.tar.gz'... "
+      wget 'https://launcher.mojang.com/download/Minecraft.tar.gz' > \
+        /dev/null 2>&1
+      echo -e "${GREEN}Done${COLOR_RESET}"
+    else
+      patina_raise_exception 'PE0006'
+      return 1
+    fi
 
     # Extract the contents of the Minecraft Launcher archive.
     printf "NOTE: Extracting contents of 'Minecraft.tar.gz'... "
     tar -xvzf "Minecraft.tar.gz" > /dev/null 2>&1
-    echo "Done"
+    echo -e "${GREEN}Done${COLOR_RESET}"
+
+    # Inject 'autorun' file.
+    printf "NOTE: Injecting populated 'autorun.sh' file... "
+    local autorun_header="#!/usr/bin/env bash\n\n"
+    local autorun_command="./minecraft-launcher\n\n"
+    local autorun_footer="# End of File.\n"
+    echo -e "${GREEN}Done${COLOR_RESET}"
+
+    echo -e "$autorun_header$autorun_command$autorun_footer" > \
+      "$PATINA_PATH_HOME_DOWNLOADS/minecraft-launcher/autorun.sh"
+
+    chmod 755 "$PATINA_PATH_HOME_DOWNLOADS/minecraft-launcher/autorun.sh"
 
     # Create new disk image (if possible).
-    if ( hash 'mkisofs' > /dev/null 2>&1 ) ; then
+    if ( command -v 'mkisofs' > /dev/null 2>&1 ) ; then
       if [ -f 'Minecraft.iso' ] ; then
         printf "NOTE: Deleting existing 'Minecraft.iso' disk image..."
         rm 'Minecraft.iso'
-        echo "Done"
+        echo -e "${GREEN}Done${COLOR_RESET}"
       fi
 
       printf "NOTE: Creating new 'Minecraft.iso' disk image... "
       mkisofs -volid "Minecraft" \
         -o "Minecraft.iso" -input-charset UTF-8 -joliet -joliet-long \
         -rock 'minecraft-launcher' > /dev/null 2>&1
-      echo "Done"
+      echo -e "${GREEN}Done${COLOR_RESET}"
 
       patina_delete_minecraft_data
     fi
 
     # Finally change back to original directory.
-    cd ~- || return
+    cd ~- || return 1
+    return 0
   else
-    patina_throw_exception 'PE0008'
+    patina_raise_exception 'PE0008'
+    return 1
   fi
 }
 
