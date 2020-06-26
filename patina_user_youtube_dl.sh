@@ -27,13 +27,13 @@
 # patina_youtube_dl <format> <url>
 patina_youtube_dl() {
   if ( ! hash 'youtube-dl' ) ; then
-    patina_throw_exception 'PE0006'
+    patina_raise_exception 'PE0006'
     return
   elif [ "$#" -eq "0" ] || [ "$#" -eq "1" ] ; then
-    patina_throw_exception 'PE0001'
+    patina_raise_exception 'PE0001'
     return
   elif [ "$#" -gt "2" ] ; then
-    patina_throw_exception 'PE0002'
+    patina_raise_exception 'PE0002'
     return
   elif [ "$#" -eq "2" ] ; then
     case "$1" in
@@ -44,13 +44,13 @@ patina_youtube_dl() {
         youtube-dl -f 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/mp4' -o \
           "%(playlist_index)s %(title)s.%(ext)s" "$2" ;;
       *)
-        patina_throw_exception 'PE0001'
+        patina_raise_exception 'PE0001'
         return
         ;;
     esac
     return
   else
-    patina_throw_exception 'PE0000'
+    patina_raise_exception 'PE0000'
     return
   fi
 }

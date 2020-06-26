@@ -39,11 +39,11 @@ patina_calibrate_terminal_draw_columns() {
 }
 
 patina_calibrate_terminal_draw_rows() {
-  printf "%b" "${patina_minor_color}"
+  printf "%b" "${PATINA_MINOR_COLOR}"
   for (( j=2; j <= height; ++j )) ; do
     patina_calibrate_terminal_draw_columns
   done
-  printf "%b" "${color_reset}"
+  printf "%b" "${COLOR_RESET}"
 }
 
 patina_calibrate_terminal_window() {
@@ -56,15 +56,15 @@ patina_calibrate_terminal_window() {
 
   # Failure: One or both of the required arguments are null or not numbers
   if ! [[ $width =~ $number ]] || ! [[ $height =~ $number ]] ; then
-    patina_throw_exception 'PE0001'
+    patina_raise_exception 'PE0001'
 
   # Failure: One or both of the arguments are '0'
   elif [[ $width = "0" ]] || [[ $height = "0" ]] ; then
-    patina_throw_exception 'PE0003'
+    patina_raise_exception 'PE0003'
 
   # Failure: Arguments are out-of-range
   elif [[ $width -lt 80 || $width -gt 300 ]] || [[ $height -lt 24 || $height -gt 300 ]] ; then
-    patina_throw_exception 'PE0003'
+    patina_raise_exception 'PE0003'
 
   # Success: Both arguments exist and are numeric
   elif [[ $width =~ $number && $width -gt 0 ]] && [[ $height =~ $number && $height -gt 0 ]] ; then
@@ -73,7 +73,7 @@ patina_calibrate_terminal_window() {
 
   # Failure: Catch any other error condition here
   else
-    patina_throw_exception 'PE0000'
+    patina_raise_exception 'PE0000'
   fi
 
   # Cleanup local variables after use
