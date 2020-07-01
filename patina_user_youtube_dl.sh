@@ -43,6 +43,10 @@ patina_youtube_dl() {
       'mp4')
         youtube-dl -f 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/mp4' -o \
           "%(playlist_index)s %(title)s.%(ext)s" "$2" ;;
+      'mp4-sub')
+        youtube-dl --write-auto-sub --write-sub --embed-subs --sub-lang en_US,en-US,en \
+          --sub-format srt/best -f 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/mp4' -o \
+          "%(playlist_index)s %(title)s.%(ext)s" "$2" ;;
       *)
         patina_raise_exception 'PE0001'
         return
