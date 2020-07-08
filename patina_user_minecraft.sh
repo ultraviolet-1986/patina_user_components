@@ -106,9 +106,10 @@ patina_download_minecraft_data() {
       printf "NOTE: Downloading fresh copy of 'Minecraft.tar.gz'... "
       wget 'https://launcher.mojang.com/download/Minecraft.tar.gz' > /dev/null 2>&1
       echo -e "${GREEN}Done${COLOR_RESET}"
+
     else
       patina_raise_exception 'PE0006'
-      return 1
+      return 127
     fi
 
     # Extract the contents of the Minecraft Launcher archive.
@@ -142,6 +143,10 @@ patina_download_minecraft_data() {
       echo -e "${GREEN}Done${COLOR_RESET}"
 
       patina_delete_minecraft_data
+
+    else
+      patina_raise_exception 'PE0006'
+      return 127
     fi
 
     # Finally change back to original directory.
@@ -149,7 +154,7 @@ patina_download_minecraft_data() {
     return 0
 
   else
-    patina_raise_exception 'PE0008'
+    patina_raise_exception 'PE0000'
     return 1
   fi
 }
