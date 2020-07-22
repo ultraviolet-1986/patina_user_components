@@ -93,9 +93,8 @@ patina_delete_minecraft_data() {
 }
 
 patina_download_minecraft_data() {
-  patina_detect_internet_connection
-
-  if [ "$PATINA_HAS_INTERNET" = true ] ; then
+  # Success: Patina has an active Internet connection.
+  if ( patina_detect_internet_connection ) ; then
     mkdir -p "$PATINA_PATH_HOME_DOWNLOADS"
     cd "$PATINA_PATH_HOME_DOWNLOADS" || return 1
 
@@ -153,6 +152,12 @@ patina_download_minecraft_data() {
     cd ~- || return 1
     return 0
 
+  # Failure: Patina does not have an active Internet connection.
+  elif ( ! patina_detect_internet_connection ) ; then
+    patina_raise_exception 'PE0008'
+    return 1
+
+  # Failure: Catch all.
   else
     patina_raise_exception 'PE0000'
     return 1
