@@ -4,19 +4,21 @@
 # License #
 ###########
 
-# Patina User Components: Additional components to simplify common tasks.
+# Patina User Components: Additional components for other use-cases.
 # Copyright (C) 2019 William Willis Whinn
 
-# This program is free software: you can redistribute it and/or modify it under the terms of the GNU
-# General Public License as published by the Free Software Foundation, either version 3 of the
-# License, or (at your option) any later version.
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
 
-# This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without
-# even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-# General Public License for more details.
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# GNU General Public License for more details.
 
-# You should have received a copy of the GNU General Public License along with this program. If not,
-# see <http://www.gnu.org/licenses/>.
+# You should have received a copy of the GNU General Public License
+# along with this program. If not, see <http:#www.gnu.org/licenses/>.
 
 #########################
 # ShellCheck Directives #
@@ -32,7 +34,8 @@
 # Function: 'patina_delete_minecraft_data'
 
 #   Notes:
-#     1. Detects and deletes files and folders related to Minecraft launcher downloads.
+#     1. Detects and deletes files and folders related to Minecraft
+#        launcher downloads.
 #     2. This function will not delete the 'Minecraft.iso' file.
 
 #   Required Packages:
@@ -47,14 +50,18 @@
 # Function: 'patina_download_minecraft_data'
 
 #   Notes:
-#     1. This function will download the Minecraft launcher data from Microsoft and create a
-#        mountable disk image from these files.
-#     2. This function will create a 'Minecraft.iso' file within the ~/Downolads directory.
-#     3. This function will not operate if there are no active Internet connections.
-#     4. Existing files and directories will be deleted before beginning and will also clean up
-#        after the disk image is compiled.
-#     5. If package 'genisoimage' is not installed, a disk image will not be created and downloaded
-#        files will remain in ~/Downloads.
+#     1. This function will download the Minecraft launcher data from
+#        Microsoft and create a mountable disk image from these files.
+#     2. This function will create a 'Minecraft.iso' file within the
+#        ~/Downolads directory.
+#     3. This function will not operate if there are no active Internet
+#        connections.
+#     4. Existing files and directories will be deleted before
+#        beginning and will also clean up after the disk image is
+#        compiled.
+#     5. If package 'genisoimage' is not installed, a disk image will
+#        not be created and downloaded files will remain in
+#        ~/Downloads.
 
 #   Required Packages:
 #     1. 'genisoimage' for command 'mkisofs'.

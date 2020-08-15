@@ -4,19 +4,21 @@
 # License #
 ###########
 
-# Patina User Components: Additional components to simplify common tasks.
+# Patina User Components: Additional components for other use-cases.
 # Copyright (C) 2019 William Willis Whinn
 
-# This program is free software: you can redistribute it and/or modify it under the terms of the GNU
-# General Public License as published by the Free Software Foundation, either version 3 of the
-# License, or (at your option) any later version.
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
 
-# This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without
-# even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-# General Public License for more details.
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# GNU General Public License for more details.
 
-# You should have received a copy of the GNU General Public License along with this program. If not,
-# see <http://www.gnu.org/licenses/>.
+# You should have received a copy of the GNU General Public License
+# along with this program. If not, see <http:#www.gnu.org/licenses/>.
 
 #########################
 # ShellCheck Directives #
@@ -49,35 +51,36 @@ patina_calibrate_terminal_draw_rows() {
 }
 
 patina_calibrate_terminal_window() {
-  # Define terminal dimensions
+  # Define terminal dimensions.
   local width="$1"
   local height="$2"
 
-  # Create regular expression
+  # Create regular expression.
   local number='^[0-9]+$'
 
-  # Failure: One or both of the required arguments are null or not numbers
+  # Failure: One or both of the required arguments are null or not
+  # numbers.
   if ! [[ $width =~ $number ]] || ! [[ $height =~ $number ]] ; then
     patina_raise_exception 'PE0001'
     return 1
 
-  # Failure: One or both of the arguments are '0'
+  # Failure: One or both of the arguments are '0'.
   elif [[ $width = "0" ]] || [[ $height = "0" ]] ; then
     patina_raise_exception 'PE0003'
     return 1
 
-  # Failure: Arguments are out-of-range
+  # Failure: Arguments are out-of-range.
   elif [[ $width -lt 80 || $width -gt 300 ]] || [[ $height -lt 24 || $height -gt 300 ]] ; then
     patina_raise_exception 'PE0003'
     return 1
 
-  # Success: Both arguments exist and are numeric
+  # Success: Both arguments exist and are numeric.
   elif [[ $width =~ $number && $width -gt 0 ]] && [[ $height =~ $number && $height -gt 0 ]] ; then
     reset
     patina_calibrate_terminal_draw_rows
     return 0
 
-  # Failure: Catch any other error condition here
+  # Failure: Catch all.
   else
     patina_raise_exception 'PE0000'
     return 1
