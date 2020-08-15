@@ -1,7 +1,6 @@
 # Patina User Components
 
-Additional components that add functionality to Patina without bloating the main
-repository.
+Additional components for other use-cases.
 
 ## Table of Contents
 
