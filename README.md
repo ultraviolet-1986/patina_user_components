@@ -34,3 +34,11 @@ This command will download either video or audio depending on use.
 p-yt-dl mp3 <URL>  # Download an MP3 audio file from a URL.
 p-yt-dl mp4 <URL>  # Download an MP4 video file from a URL.
 ```
+
+### yt-dlp
+
+This command will download a video from a given URL.
+
+```bash
+p-yt-dlp best <URL>  # Download a video file in best detected format.
+```

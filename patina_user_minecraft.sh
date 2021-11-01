@@ -138,7 +138,7 @@ patina_download_minecraft_data() {
     # Create new disk image (if possible).
     if ( command -v 'mkisofs' > /dev/null 2>&1 ) ; then
       if [ -f 'Minecraft.iso' ] ; then
-        printf "NOTE: Deleting existing 'Minecraft.iso' disk image..."
+        printf "NOTE: Deleting existing 'Minecraft.iso' disk image... "
         rm 'Minecraft.iso'
         echo -e "${GREEN}Done${COLOR_RESET}"
       fi
